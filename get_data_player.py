@@ -3,6 +3,25 @@ from bs4 import BeautifulSoup
 import pandas 
 import time
 
+url_dict = {
+    'stats' : 'https://fbref.com/en/comps/9/stats/Premier-League-Stats',
+    'keepers' : 'https://fbref.com/en/comps/9/keepers/Premier-League-Stats',
+    'shooting' : 'https://fbref.com/en/comps/9/shooting/Premier-League-Stats',
+    'passing' : 'https://fbref.com/en/comps/9/passing/Premier-League-Stats',
+    'gca' : 'https://fbref.com/en/comps/9/gca/Premier-League-Stats',
+    'defense' : 'https://fbref.com/en/comps/9/defense/Premier-League-Stats',
+    'possession' : 'https://fbref.com/en/comps/9/possession/Premier-League-Stats',
+    'misc' : 'https://fbref.com/en/comps/9/misc/Premier-League-Stats',
+}
+
+def process_nation(nation):
+    nation = str(nation)
+    res = ''
+    for x in nation:
+        if x.isupper():
+            res += x
+    return res
+
 def get_frame_from_URL(url, prefix):
     #get html from url
     response = requests.get(url)
@@ -54,16 +73,8 @@ def get_frame_from_URL(url, prefix):
         player_list.append(player)
     
     return pandas.DataFrame(player_list, columns = headers)
-    
-def process_nation(nation):
-    nation = str(nation)
-    res = ''
-    for x in nation:
-        if x.isupper():
-            res += x
-    return res
 
-def get_all_fram_from_web():
+def get_a_fram_with_all_data_from_web():
     # get frame from url
     data_frame = {}
     for name, url, in url_dict.items():
@@ -76,15 +87,20 @@ def get_all_fram_from_web():
         if name == 'stats':
             continue
         data_frame['stats'] = data_frame['stats'].merge(df, how = 'left', on = ['Player', 'Nation', 'Pos', 'Squad'], suffixes = ('', '_x'))
+
+    #remove duplicates
+    data_frame['stats'].drop_duplicates(subset = ['Player', 'Nation', 'Pos', 'Squad'], inplace = True)
+
     #remove player with less than 90 minutes played
     data_frame['stats']['stats_Playing Time_Min'] = data_frame['stats']['stats_Playing Time_Min'].apply(lambda x: int(str(x).replace(',', '')))
     data_frame['stats'] = data_frame['stats'][data_frame['stats']['stats_Playing Time_Min'] > 90]
-    #remove duplicates
-    data_frame['stats'].drop_duplicates(subset = ['Player', 'Nation', 'Pos', 'Squad'], inplace = True)
+
     #process nation
     data_frame['stats']['Nation'] = data_frame['stats']['Nation'].apply(process_nation)
+
     #sort by player name
     data_frame['stats'] = data_frame['stats'].sort_values(by = 'Player')
+
     return data_frame['stats']
 
 column_mapping = {
@@ -168,26 +184,14 @@ column_mapping = {
     'Won%': 'misc_Aerial Duels_Won%'
 }
 
-url_dict = {
-    'stats' : 'https://fbref.com/en/comps/9/stats/Premier-League-Stats',
-    'keepers' : 'https://fbref.com/en/comps/9/keepers/Premier-League-Stats',
-    'shooting' : 'https://fbref.com/en/comps/9/shooting/Premier-League-Stats',
-    'passing' : 'https://fbref.com/en/comps/9/passing/Premier-League-Stats',
-    'gca' : 'https://fbref.com/en/comps/9/gca/Premier-League-Stats',
-    'defense' : 'https://fbref.com/en/comps/9/defense/Premier-League-Stats',
-    'possession' : 'https://fbref.com/en/comps/9/possession/Premier-League-Stats',
-    'misc' : 'https://fbref.com/en/comps/9/misc/Premier-League-Stats',
-}
-
 if __name__ == '__main__':
-
+    #get data from web
+    web_data_frame = get_a_fram_with_all_data_from_web()
     #result
     df = pandas.DataFrame()
     for x, y in column_mapping.items():
-        df[x] = data_frame['stats'][y]
+        df[x] = web_data_frame[y]
     #fill N/a for empty values or unvalid values
     df = df.replace('', 'N/a').fillna('N/a')
     #to csv file
-    df.to_csv('tmp.csv', index = False, encoding = 'utf-8-sig')
-    # data_frame['stats'].to_csv('result.csv', index = False, encoding = 'utf-8-sig')
-    # get_frame_from_URL(url_dict['Goalkeeping'])
+    df.to_csv('result.csv', index = False, encoding = 'utf-8-sig')

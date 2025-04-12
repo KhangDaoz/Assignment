@@ -57,14 +57,13 @@ def find_median_mean_and_standard_each_statistic(df):
     cal_df.to_csv('result2.csv', encoding = 'utf-8-sig')
 
 if __name__ == '__main__':
-    # read the CSV file into a DataFrame
+    # Read the CSV file into a DataFrame
     df = pandas.read_csv('result.csv')
-    # preprocess the DataFrame
+    # Preprocess the DataFrame
     df['Age'] = df['Age'].apply(lambda x : float(f'{(int(x.split('-')[0]) + (int(x.split('-')[1]) / 365)):.2f}'))
     for headers in df.columns[4:]:
         df[headers] = pandas.to_numeric(df[headers], errors='coerce')
 
-    # identify_the_top_3_each_statistic(df)
-    # find_median_mean_and_standard_each_statistic(df)
-
+    identify_the_top_3_each_statistic(df)
+    find_median_mean_and_standard_each_statistic(df)
 

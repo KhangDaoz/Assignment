@@ -1,5 +1,6 @@
 import pandas 
 import matplotlib.pyplot as plt
+from tabulate import tabulate
 
 # Identify the top 3 players with the highest and lowest scores for each statistic.
 def identify_the_top_3_each_statistic(df):
@@ -12,10 +13,10 @@ def identify_the_top_3_each_statistic(df):
         smallest = DF.nsmallest(3, header)
         with open('top_3.txt', 'a', encoding = 'utf-8-sig') as f:
             f.write(f'Top 3 player with the highest {header}:\n')
-            f.write(largest[['Player', 'Nation', 'Team', 'Position', header]].to_string(index = False))
+            f.write(tabulate(largest[['Player', 'Nation', 'Team', 'Position', header]], headers = 'keys', tablefmt = 'grid', showindex = False))
             f.write('\n\n')
             f.write(f'Top 3 player with the lowest {header}:\n')
-            f.write(smallest[['Player', 'Nation', 'Team', 'Position', header]].to_string(index = False))
+            f.write(tabulate(smallest[['Player', 'Nation', 'Team', 'Position', header]], headers = 'keys', tablefmt = 'grid', showindex = False))
             f.write('\n\n-------------------------------------------------------------------------\n\n')
 
 def find_median_mean_and_standard_each_statistic(df):
@@ -68,7 +69,7 @@ def plot_histogram(df):
     headers = df.columns[4:]    
     for header in headers:
         df_copy = df[header].dropna()
-        plt.hist(df_copy, bins = 30, color = 'red', edgecolor = 'black')
+        plt.hist(df_copy, bins = 25, color = 'red', edgecolor = 'black')
         plt.title(f'Histogram of {header} Distribution')
         plt.xlabel('Value of ' + header)
         plt.ylabel('Frequency Players')
@@ -79,7 +80,7 @@ def plot_histogram(df):
     for team, dfteam in df.groupby('Team'):
         for header in headers:
             df_copy = dfteam[header].dropna()
-            plt.hist(df_copy, bins = 30, color = 'red', edgecolor = 'black')
+            plt.hist(df_copy, bins = 20, color = 'red', edgecolor = 'black')
             plt.title(f'Histogram of {header} Distribution for {team}')
             plt.xlabel('Value of ' + header)
             plt.ylabel('Frequency Players')

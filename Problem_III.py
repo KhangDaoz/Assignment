@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
+from sklearn.decomposition import PCA
 
 # read dateframe from csv file
 df = pd.read_csv('result.csv')
@@ -55,4 +56,16 @@ kmeans = KMeans(n_clusters = 8, random_state = 0)
 kmeans.fit(df[headers_scaled])
 df['Labels of Players'] = kmeans.labels_
 
-print(df[['Player', 'Labels of Players']])
+# print(df[['Labels of Players']])
+
+# use PCA 
+pca = PCA(n_components = 2)
+X_pca = pca.fit_transform(df[headers_scaled])
+
+plt.figure(figsize = (8, 6))
+plt.scatter(x = X_pca[:, 0], y = X_pca[:, 1], c = kmeans.labels_)
+plt.xlabel('PC 1')
+plt.ylabel('PC 2')
+plt.title('PCA of Iris Dataset')
+plt.colorbar(label='Target')
+plt.show()

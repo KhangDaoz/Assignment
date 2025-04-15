@@ -3,34 +3,35 @@ import pandas as pd
 
 def collect_player_tranfer_values() :
     # get api from web to url
-    url = 'https://www.footballtransfers.com/en/transfers/actions/confirmed/overview'
+    url = 'https://www.footballtransfers.com/us/values/actions/most-valuable-football-players/overview'
 
     # headers post request
     headers = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
-        "Referer": "https://www.footballtransfers.com/en/transfers/confirmed/2024-2025/uk-premier-league",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+        "Referer": "https://www.footballtransfers.com/us/values/players/most-valuable-soccer-players/playing-in-uk-premier-league",
         "X-Requested-With": "XMLHttpRequest",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
     }
 
     # payload post request
     payload = {
-        "orderBy": "date_transfer",
+        "orderBy": "estimated_value",
         "orderByDescending": 1,
         "page": 1,
         "pages": 0,
         "pageItems": 25,
+        "positionGroupId": all,
+        "mainPositionId": all,
+        "playerRoleId": all,
+        "age": all,
         "countryId": all,
-        "season": 5845,
-        "tournamentId": 31,
-        "clubFromId": all,
-        "clubToId": all,
+        "tournamentId": 31
     }
 
     # get player transfer 
     df_transfer = pd.DataFrame()
 
-    for page in range(1, 15):
+    for page in range(1, 23):
         # change page
         payload['page'] = page
 
@@ -45,8 +46,8 @@ def collect_player_tranfer_values() :
         df_transfer = pd.concat([df_transfer, cur_df], axis = 0, ignore_index = True)
 
     # process dataframe
-    df_result = df_transfer[['player_name', 'country_name', 'age', 'club_from_name', 'club_to_name', 'amount', 'date_transfer']]
-    df_result = df_result.rename(columns = {'player_name' : 'Player', 'country_name' : 'Country', 'age' : 'Age', 'club_from_name' : 'From Club', 'club_to_name' : 'To Club', 'amount' : 'Price', 'date_transfer' : 'Date Transfer'})
+    df_result = df_transfer[['player_name', 'country_name', 'age', 'estimated_value']]
+    df_result = df_result.rename(columns = {'player_name' : 'Player', 'country_name' : 'Country', 'age' : 'Age', 'estimated_value' : 'Price'})
 
     data_player_from_fbref = pd.read_csv('result.csv', encoding = 'utf-8-sig')
 

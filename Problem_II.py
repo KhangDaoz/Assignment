@@ -5,6 +5,8 @@ from tabulate import tabulate
 # Identify the top 3 players with the highest and lowest scores for each statistic.
 def identify_the_top_3_each_statistic(df):
     # Write the top 3 players with the highest and lowest scores for each statistic to a text file
+    with open('top_3.txt', 'w') as f:
+        pass
     for header in df.columns[4:]:
         DF = df
         DF[header] = pandas.to_numeric(DF[header], errors='coerce')

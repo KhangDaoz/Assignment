@@ -86,7 +86,7 @@ def get_a_frame_with_all_data_from_web():
     for name, df in data_frame.items():
         if name == 'stats':
             continue
-        data_frame['stats'] = data_frame['stats'].merge(df, how = 'left', on = ['Player', 'Nation', 'Pos', 'Squad'], suffixes = ('', '_x'))
+        data_frame['stats'] = data_frame['stats'].merge(df, how = 'left', on = ['Player', 'Nation', 'Pos', 'Squad'])
 
     # remove duplicates
     data_frame['stats'].drop_duplicates(subset = ['Player', 'Nation', 'Pos', 'Squad'], inplace = True)

@@ -1,5 +1,6 @@
 import pandas 
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 from tabulate import tabulate
 
 # Identify the top 3 players with the highest and lowest scores for each statistic.
@@ -66,28 +67,35 @@ def find_median_mean_and_standard_each_statistic(df):
     # write to csv file
     cal_df.to_csv('result2.csv', encoding = 'utf-8-sig')
 
-def plot_histogram(df):
-    # all players of league
-    headers = df.columns[4:]    
-    for header in headers:
-        df_copy = df[header].dropna()
-        plt.hist(df_copy, bins = 25, color = 'red', edgecolor = 'black')
-        plt.title(f'Histogram of {header} Distribution')
-        plt.xlabel('Value of ' + header)
-        plt.ylabel('Frequency Players')
-        plt.grid(axis = 'y', color = 'black', linestyle = '--', linewidth = 0.5)
-        plt.show()  
-
-    # players of each team
-    for team, dfteam in df.groupby('Team'):
+def plot_histogram(df, filename='histograms.pdf'):
+    headers = ['Goals', 'Assists', 'G/sh', 'Tkl', 'Att', 'Blocks']
+    
+    with PdfPages(filename) as pdf:
+        # All players in league
         for header in headers:
-            df_copy = dfteam[header].dropna()
-            plt.hist(df_copy, bins = 20, color = 'red', edgecolor = 'black')
-            plt.title(f'Histogram of {header} Distribution for {team}')
+            df_copy = df[header].dropna()
+            plt.figure()
+            plt.hist(df_copy, bins=25, color='red', edgecolor='black')
+            plt.title(f'Histogram of {header} Distribution for All')
             plt.xlabel('Value of ' + header)
             plt.ylabel('Frequency Players')
-            plt.grid(axis = 'y', color = 'black', linestyle = '--', linewidth = 0.5)
-            plt.show()
+            plt.grid(axis='y', color='black', linestyle='--', linewidth=0.5)
+            pdf.savefig() 
+            plt.close()
+
+        # Each team
+        for team, dfteam in df.groupby('Team'):
+            for header in headers:
+                df_copy = dfteam[header].dropna()
+                if not df_copy.empty:
+                    plt.figure()
+                    plt.hist(df_copy, bins=20, color='red', edgecolor='black')
+                    plt.title(f'Histogram of {header} Distribution for {team}')
+                    plt.xlabel('Value of ' + header)
+                    plt.ylabel('Frequency Players')
+                    plt.grid(axis='y', color='black', linestyle='--', linewidth=0.5)
+                    pdf.savefig()
+                    plt.close()
 
 def identify_team_with_highest_score(df):
     # get the teams and headers

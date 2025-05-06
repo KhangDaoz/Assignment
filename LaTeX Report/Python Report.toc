@@ -1,0 +1,58 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Summary}{1}{section*.1}%
+\contentsline {chapter}{List of Figures}{4}{section*.4}%
+\contentsline {chapter}{\numberline {1}Data Collection}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Objective}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Tools and Libraries Used}{5}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Methodology}{5}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}URL Management}{5}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Table Extraction}{6}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Data Integration}{6}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Filtering and Cleaning}{6}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Output}{6}{subsection.1.3.5}%
+\contentsline {section}{\numberline {1.4}Result}{7}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Statistical Analysis \& Visualization}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Objective}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Tools and Libraries Used}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Methodology}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Top 3 and Bottom 3 Players by Statistic}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Summary Statistics}{9}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Histogram Visualization}{10}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Team Performance Evaluation}{12}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Result}{12}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Clustering and \mbox {Dimensionality} Reduction}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objective}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Tools and Libraries Used}{14}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Methodology}{15}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Data Preprocessing}{15}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Optimal K Determination}{15}{subsection.3.3.2}%
+\contentsline {subsubsection}{Elbow Method}{15}{subsection.3.3.2}%
+\contentsline {subsubsection}{Silhouette Method}{15}{subsection.3.3.2}%
+\contentsline {subsubsection}{Result}{16}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}K-Means Clustering and Dimensionality Reduction with PCA}{16}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Result}{17}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Player Transfer Values and Value Estimation}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Objective}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Tools and Libraries Used}{19}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Methodology}{20}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Data Collection}{20}{subsection.4.3.1}%
+\contentsline {subsubsection}{Two APIs were used:}{20}{subsection.4.3.1}%
+\contentsline {subsubsection}{Data Collection from API}{20}{subsection.4.3.1}%
+\contentsline {subsubsection}{Filtering FBref Data}{20}{subsection.4.3.1}%
+\contentsline {subsubsection}{Name Normalization and Matching}{20}{subsection.4.3.1}%
+\contentsline {subsubsection}{Handling Missing Matches}{21}{subsection.4.3.1}%
+\contentsline {subsubsection}{Result}{21}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Feature Selection and Modeling}{21}{subsection.4.3.2}%
+\contentsline {subsubsection}{Data collection}{21}{subsection.4.3.2}%
+\contentsline {subsubsection}{Statistics}{22}{subsection.4.3.2}%
+\contentsline {subsubsection}{Data preprocessing}{22}{subsection.4.3.2}%
+\contentsline {subsubsection}{Data visualization}{23}{figure.4.2}%
+\contentsline {subsubsection}{Model building}{24}{figure.4.3}%
+\contentsline {paragraph}{Choose important features for train model (Features Selection)}{24}{figure.4.3}%
+\contentsline {paragraph}{Split data train and test}{24}{figure.4.3}%
+\contentsline {paragraph}{Create model and train}{25}{figure.4.3}%
+\contentsline {subsubsection}{Model evaluation}{26}{figure.4.4}%
+\contentsline {paragraph}{Evaluation Metrics}{26}{figure.4.4}%
+\contentsline {paragraph}{Cross-Validation}{26}{figure.4.4}%
+\contentsline {chapter}{Conclusion}{28}{section*.6}%
+\contentsline {chapter}{References}{30}{section*.7}%
